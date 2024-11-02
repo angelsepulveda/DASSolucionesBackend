@@ -1,0 +1,7 @@
+﻿version: '3.4'
+
+services:
+  erpdb:
+    image: postgres:latest
+volumes:
+  postgres_erpdb:

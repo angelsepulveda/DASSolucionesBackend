@@ -1,0 +1,14 @@
+version: '3.4'
+
+services:
+  erpdb:
+    container_name: erpdb
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=ErpDb
+    restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_erpdb:/var/lib/postgresql/data/

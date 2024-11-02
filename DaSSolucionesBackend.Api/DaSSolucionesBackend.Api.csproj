@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\DASSolucionesBackend.General\DASSolucionesBackend.General.csproj" />
+      <ProjectReference Include="..\DASSolucionesBackend.Sales\DASSolucionesBackend.Sales.csproj" />
+      <ProjectReference Include="..\DASSolucionesBackend.Security\DASSolucionesBackend.Security.csproj" />
+      <ProjectReference Include="..\DASSolucionesBackend.Shopping\DASSolucionesBackend.Shopping.csproj" />
+      <ProjectReference Include="..\DASSolucionesBackend.Warehouses\DASSolucionesBackend.Warehouses.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="..\.dockerignore">
+        <Link>.dockerignore</Link>
+      </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.10">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+    </ItemGroup>
+
+</Project>
