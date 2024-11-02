@@ -22,4 +22,16 @@ public class DocumentType : Entity<Guid>
         const bool status = true;
         return new DocumentType(id, name, code, description, status);
     }
+    
+    public void Update(string name, string? code, string? description)
+    {
+        Name = name;
+        Code = code;
+        Description = description;
+    }
+    
+    public void ChangeStatus(bool status)
+    {
+        Status = status;
+    }
 }

@@ -1,9 +1,10 @@
 ﻿using System.Reflection;
+using DASSolucionesBackend.General.Data.Contracts;
 using DASSolucionesBackend.General.Submodules.DocumentTypes.Entities;
 
 namespace DASSolucionesBackend.General.Data;
 
-public class GeneralDbContext : DbContext
+public class GeneralDbContext : DbContext, IGeneralDbContext
 {
     public GeneralDbContext(DbContextOptions<GeneralDbContext> options) : base(options)
     {

@@ -1,3 +1,12 @@
 ﻿global using DASSolucionesBackend.Shared.Entities;
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.EntityFrameworkCore.Metadata.Builders;
+global using DASSolucionesBackend.Shared.Contracts.CQRS;
+global using DASSolucionesBackend.General.Data.Contracts;
+global using DASSolucionesBackend.Shared.Exceptions;
+global using MediatR;
+global using Microsoft.Extensions.DependencyInjection;
+global using Carter;
+global using Microsoft.AspNetCore.Builder;
+global using Microsoft.AspNetCore.Http;
+global using Microsoft.AspNetCore.Routing;
