@@ -15,6 +15,7 @@ internal sealed class RegisterDocumentTypeEndpoint : ICarterModule
             .Produces<Guid>(StatusCodes.Status201Created)
             .ProducesProblem(StatusCodes.Status400BadRequest)
             .WithSummary("Register DocumentType")
-            .WithDescription("Register a new DocumentType");
+            .WithDescription("Register a new DocumentType")
+            .WithTags("DocumentTypes");
     }
 }

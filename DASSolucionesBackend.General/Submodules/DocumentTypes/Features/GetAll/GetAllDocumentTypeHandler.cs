@@ -7,7 +7,7 @@ public record GetAllDocumentTypeQuery()
 
 public sealed record GetAllDocumentTypeResult(List<GetAllDocumentTypeReponseDto> DocumentTypes);
 
-internal class GetAllDocumentTypeHandler(IGeneralDbContext dbContext)
+internal class GetAllDocumentTypeCommandHandler(IGeneralDbContext dbContext)
     : IQueryHandler<GetAllDocumentTypeQuery, GetAllDocumentTypeResult>
 {
     public async Task<GetAllDocumentTypeResult> Handle(GetAllDocumentTypeQuery request,
