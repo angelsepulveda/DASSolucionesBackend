@@ -1,7 +1,6 @@
-﻿using System.Reflection;
-using DASSolucionesBackend.General.Data;
+﻿using DASSolucionesBackend.General.Data;
+using DASSolucionesBackend.General.Submodules.Address;
 using DASSolucionesBackend.General.Submodules.DocumentTypes.Services;
-using DASSolucionesBackend.Shared.Behaviors;
 using DASSolucionesBackend.Shared.Data;
 using DASSolucionesBackend.Shared.Data.Interceptors;
 using Microsoft.EntityFrameworkCore.Diagnostics;
@@ -40,6 +39,7 @@ public static class GeneralModule
     private static IServiceCollection AddGeneralServices(this IServiceCollection services)
     {
         services.AddDocumentTypeServices();
+        services.AddAddressSubModule();
         
         return services;
     }

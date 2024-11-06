@@ -3,7 +3,7 @@
 public class DocumentTypeNotFoundException : NotFoundException
 {
     public DocumentTypeNotFoundException(Guid id) 
-        : base("Product", id)
+        : base("DocumentType", id)
     {
     }
 }

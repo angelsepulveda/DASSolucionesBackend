@@ -6,17 +6,17 @@ internal sealed class DeleteDocumentTypeEndpoint : ICarterModule
     {
         app.MapDelete("/api/document-types/{id:guid}", async (Guid id, ISender sender) =>
             {
-                DeleteDocumentTypeCommand query = new(id);
+                DeleteDocumentTypeCommand command = new(id);
 
-                await sender.Send(query);
+                await sender.Send(command);
 
                 return Results.NoContent();
                 
             }).WithName("DeleteDocumentType") 
             .Produces(StatusCodes.Status204NoContent)
             .ProducesProblem(StatusCodes.Status400BadRequest)
-            .WithSummary("Restore DocumentType")
-            .WithDescription("Restore Document Type")
+            .WithSummary("Delete DocumentType")
+            .WithDescription("Delete Document Type")
             .WithTags("DocumentTypes");
     }
 }
