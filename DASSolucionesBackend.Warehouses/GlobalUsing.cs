@@ -1,0 +1,1 @@
+﻿global using DASSolucionesBackend.Warehouses.Data.Contracts;

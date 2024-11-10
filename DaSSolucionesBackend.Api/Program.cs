@@ -1,6 +1,7 @@
 using Carter;
 using DASSolucionesBackend.Shared.Exceptions.Handler;
 using DASSolucionesBackend.Shared.Extensions;
+using DASSolucionesBackend.Warehouses;
 using Microsoft.OpenApi.Models;
 using Serilog;
 
@@ -10,16 +11,13 @@ builder.Host.UseSerilog((context, config) =>
     config.ReadFrom.Configuration(context.Configuration));
 
 //se agrega los contenedores de servicios
-builder.Services.AddCarterWithAssemblies(typeof(GeneralModule).Assembly);
-builder.Services.AddMediatrWithAssemblies(typeof(GeneralModule).Assembly);
+builder.Services.AddCarterWithAssemblies(typeof(GeneralModule).Assembly, typeof(WarehousesModule).Assembly);
+builder.Services.AddMediatrWithAssemblies(typeof(GeneralModule).Assembly, typeof(WarehousesModule).Assembly);
 builder.Services.AddGeneralModule(builder.Configuration);
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
-});
+builder.Services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" }); });
 
 WebApplication app = builder.Build();
 
@@ -37,5 +35,5 @@ app.MapCarter();
 app.UseSerilogRequestLogging();
 app.UseExceptionHandler(options => { });
 
-app.UseGeneralModule();
+GeneralModule.UseGeneralModule(app);
 app.Run();
