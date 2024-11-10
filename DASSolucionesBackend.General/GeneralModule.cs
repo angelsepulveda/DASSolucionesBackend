@@ -1,6 +1,7 @@
 ﻿using DASSolucionesBackend.General.Data;
 using DASSolucionesBackend.General.Submodules.Address;
 using DASSolucionesBackend.General.Submodules.DocumentTypes.Services;
+using DASSolucionesBackend.General.Submodules.VoucherTypes.Services;
 using DASSolucionesBackend.Shared.Data;
 using DASSolucionesBackend.Shared.Data.Interceptors;
 using Microsoft.EntityFrameworkCore.Diagnostics;
@@ -40,6 +41,7 @@ public static class GeneralModule
     {
         services.AddDocumentTypeServices();
         services.AddAddressSubModule();
+        services.AddVoucherTypesServices();
         
         return services;
     }
