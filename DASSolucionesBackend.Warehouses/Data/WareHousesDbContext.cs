@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using DASSolucionesBackend.Warehouses.Data.Contracts;
+using DASSolucionesBackend.Warehouses.Submodules.Categories.Enttities;
 using Microsoft.EntityFrameworkCore;
 
 namespace DASSolucionesBackend.Warehouses.Data;
@@ -10,6 +11,7 @@ internal class WareHousesDbContext : DbContext, IWareHousesDbContext
     {
     }
 
+    public DbSet<Category> Categories => Set<Category>();
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasDefaultSchema("Warehouses");

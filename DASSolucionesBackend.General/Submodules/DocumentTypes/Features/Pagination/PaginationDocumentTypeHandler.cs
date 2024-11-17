@@ -18,17 +18,34 @@ internal class
         int pageIndex = request.PaginationRequest.PageIndex;
         int pageSize = request.PaginationRequest.PageSize;
 
+        IQueryable<DocumentType> query = dbContext.DocumentTypes.AsQueryable();
+
+        if (request.PaginationRequest.NumberFilter is not null &&
+            !string.IsNullOrWhiteSpace(request.PaginationRequest.Search))
+        {
+            query = request.PaginationRequest.NumberFilter switch
+            {
+                1 => query.Where(x => x.Name.Contains(request.PaginationRequest.Search)),
+                2 => query.Where(x => x.Code.Contains(request.PaginationRequest.Search)),
+                3 => query.Where(x => x.Description.Contains(request.PaginationRequest.Search)),
+                _ => query
+            };
+        }
+
+        if (request.PaginationRequest.StateFilter is not null)
+        {
+            bool status = request.PaginationRequest.StateFilter == 1;
+            query = query.Where(x => x.Status == status);
+        }
+
+        List<DocumentType> documentTypes = await Shared.Data.Pagination.Ordering(request.PaginationRequest, query)
+            .ToListAsync(cancellationToken: cancellationToken);
+
         long totalCount = await dbContext.DocumentTypes.LongCountAsync(cancellationToken);
 
-        List<DocumentType> documentTypes = await dbContext.DocumentTypes
-            .AsNoTracking()
-            .OrderBy(p => p.Name)
-            .Skip(pageSize * pageIndex)
-            .Take(pageSize)
-            .ToListAsync(cancellationToken);
-
         List<DocumentTypeDto> documentTypeDtos = documentTypes
-            .Select(x => new DocumentTypeDto(x.Id, x.Name, x.Code, x.Description, x.Status)).ToList();
+            .Select(x => new DocumentTypeDto(x.Id, x.Name, x.Code, x.Description, x.Status ? "Activo" : "Inactivo"))
+            .ToList();
 
         return new PaginationDocumentTypeResult(
             new PaginationResult<DocumentTypeDto>(pageIndex, pageSize, totalCount, documentTypeDtos));
