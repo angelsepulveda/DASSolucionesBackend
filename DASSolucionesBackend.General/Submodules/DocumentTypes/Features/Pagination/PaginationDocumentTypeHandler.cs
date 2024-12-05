@@ -32,12 +32,8 @@ internal class
             };
         }
 
-        if (request.PaginationRequest.StateFilter is not null)
-        {
-            bool status = request.PaginationRequest.StateFilter == 1;
-            query = query.Where(x => x.Status == status);
-        }
-
+        query = query.Where(x => x.Status);
+        
         List<DocumentType> documentTypes = await Shared.Data.Pagination.Ordering(request.PaginationRequest, query)
             .ToListAsync(cancellationToken: cancellationToken);
 

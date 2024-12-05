@@ -16,6 +16,18 @@ builder.Services.AddMediatrWithAssemblies(typeof(GeneralModule).Assembly, typeof
 builder.Services.AddGeneralModule(builder.Configuration);
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
+
+// Configurar CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend", policy =>
+    {
+        policy.WithOrigins("http://localhost:3000") // Cambia esto por la URL de tu frontend
+            .AllowAnyHeader()
+            .AllowAnyMethod(); // Permitir GET, POST, PUT, DELETE, etc.
+    });
+});
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" }); });
 
@@ -30,7 +42,7 @@ app.UseSwaggerUI(c =>
     c.RoutePrefix = string.Empty; // Set Swagger UI at the app's root
 });
 
-
+app.UseCors("AllowFrontend");
 app.MapCarter();
 app.UseSerilogRequestLogging();
 app.UseExceptionHandler(options => { });
