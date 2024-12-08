@@ -18,7 +18,8 @@ internal class
         int pageIndex = request.PaginationRequest.PageIndex;
         int pageSize = request.PaginationRequest.PageSize;
 
-        IQueryable<DocumentType> query = dbContext.DocumentTypes.AsQueryable();
+        IQueryable<DocumentType> query = dbContext.DocumentTypes.AsQueryable()
+            .Where(x => x.Status);
 
         if (request.PaginationRequest.NumberFilter is not null &&
             !string.IsNullOrWhiteSpace(request.PaginationRequest.Search))
@@ -31,13 +32,12 @@ internal class
                 _ => query
             };
         }
-
-        query = query.Where(x => x.Status);
         
         List<DocumentType> documentTypes = await Shared.Data.Pagination.Ordering(request.PaginationRequest, query)
             .ToListAsync(cancellationToken: cancellationToken);
 
-        long totalCount = await dbContext.DocumentTypes.LongCountAsync(cancellationToken);
+        long totalCount = await dbContext.DocumentTypes
+            .Where(x => x.Status).LongCountAsync(cancellationToken);
 
         List<DocumentTypeDto> documentTypeDtos = documentTypes
             .Select(x => new DocumentTypeDto(x.Id, x.Name, x.Code, x.Description, x.Status ? "Activo" : "Inactivo"))

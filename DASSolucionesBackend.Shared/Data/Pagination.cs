@@ -14,9 +14,11 @@ public class Pagination
     public static IQueryable<TEntity> Ordering<TEntity>(PaginationRequest request, IQueryable<TEntity> queryable,
         bool pagination = false) where TEntity : class
     {
+        string sortProperty = char.ToUpper(request.Sort[0]) + request.Sort.Substring(1);
+        
         IQueryable<TEntity> query = request.Order == "desc"
-            ? queryable.OrderBy($"{request.Sort} descending")
-            : queryable.OrderBy($"{request.Sort} ascending");
+            ? queryable.OrderBy($"{sortProperty} descending")
+            : queryable.OrderBy($"{sortProperty} ascending");
 
         if (pagination) query = query.Paginate(request);
 

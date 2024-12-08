@@ -10,10 +10,10 @@ internal sealed class DeleteDocumentTypeEndpoint : ICarterModule
 
                 await sender.Send(command);
 
-                return Results.NoContent();
-                
+                return Results.Ok(true);
+
             }).WithName("DeleteDocumentType") 
-            .Produces(StatusCodes.Status204NoContent)
+            .Produces(StatusCodes.Status200OK)
             .ProducesProblem(StatusCodes.Status400BadRequest)
             .WithSummary("Delete DocumentType")
             .WithDescription("Delete Document Type")
