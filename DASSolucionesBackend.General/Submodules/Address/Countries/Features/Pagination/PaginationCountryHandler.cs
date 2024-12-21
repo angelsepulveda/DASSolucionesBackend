@@ -19,7 +19,7 @@ internal class
         int pageIndex = request.PaginationRequest.PageIndex;
         int pageSize = request.PaginationRequest.PageSize;
 
-        IQueryable<Country> query = dbContext.Countries.AsQueryable();
+        IQueryable<Country> query = dbContext.Countries.Where(x => x.Status).AsQueryable();
 
         if (request.PaginationRequest.NumberFilter is not null &&
             !string.IsNullOrWhiteSpace(request.PaginationRequest.Search))

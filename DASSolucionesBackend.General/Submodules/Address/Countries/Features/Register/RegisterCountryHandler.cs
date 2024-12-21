@@ -16,7 +16,7 @@ public class RegisterCountryCommandValidator : AbstractValidator<RegisterCountry
         RuleFor(x => x.PayloadDto.Name)
             .NotEmpty().WithName("El nombre es requerido")
             .NotNull().WithMessage("El nombre es requerido")
-            .MaximumLength(30).WithMessage("El nombre no puede exceder los 30 caracteres");
+            .MaximumLength(200).WithMessage("El nombre no puede exceder los 200 caracteres");
 
         RuleFor(x => x.PayloadDto.Code)
             .MaximumLength(50).WithMessage("El código no puede exceder los 50 caracteres");
